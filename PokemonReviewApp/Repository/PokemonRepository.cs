@@ -4,7 +4,7 @@ using PokemonReviewApp.Models;
 
 namespace PokemonReviewApp.Repository
 {
-    public class PokemonRepository : IPokemonRespository
+    public class PokemonRepository : IPokemonRepository
     {
         private readonly DataContext _context;
 

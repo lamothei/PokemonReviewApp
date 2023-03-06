@@ -10,12 +10,12 @@ namespace PokemonReviewApp.Controllers
     [ApiController]
     public class PokemonController : Controller
     {
-        private readonly IPokemonRespository _pokemonRespository;
+        private readonly IPokemonRepository _pokemonRepository;
         private readonly IMapper _mapper;
 
-        public PokemonController(IPokemonRespository pokemonRespository, IMapper mapper)
+        public PokemonController(IPokemonRepository pokemonRepository, IMapper mapper)
         {
-            _pokemonRespository = pokemonRespository;
+            _pokemonRepository = pokemonRepository;
             _mapper = mapper;
         }
 
@@ -23,7 +23,7 @@ namespace PokemonReviewApp.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<Pokemon>))]
         public IActionResult GetPokemons()
         {
-            var pokemons = _mapper.Map<List<PokemonDto>>(_pokemonRespository.GetPokemons());
+            var pokemons = _mapper.Map<List<PokemonDto>>(_pokemonRepository.GetPokemons());
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -36,10 +36,10 @@ namespace PokemonReviewApp.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetPokemon(int pokeId)
         {
-            if (!_pokemonRespository.PokemonExists(pokeId))
+            if (!_pokemonRepository.PokemonExists(pokeId))
                 return NotFound();
 
-            var pokemon = _mapper.Map<PokemonDto>(_pokemonRespository.GetPokemon(pokeId));
+            var pokemon = _mapper.Map<PokemonDto>(_pokemonRepository.GetPokemon(pokeId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -52,10 +52,10 @@ namespace PokemonReviewApp.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetPokemonRating(int pokeId)
         {
-            if (!_pokemonRespository.PokemonExists(pokeId))
+            if (!_pokemonRepository.PokemonExists(pokeId))
                 return NotFound();
 
-            var rating = _pokemonRespository.GetPokemonRating(pokeId);
+            var rating = _pokemonRepository.GetPokemonRating(pokeId);
 
             if (!ModelState.IsValid)
                 return BadRequest();
