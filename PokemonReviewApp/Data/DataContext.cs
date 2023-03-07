@@ -45,9 +45,5 @@ namespace PokemonReviewApp.Data
 
         }
 
-
-
-
-
     }
 }
